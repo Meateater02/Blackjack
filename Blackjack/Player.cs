@@ -8,18 +8,17 @@ public class Player
     public List<Card>OnHand { get; set; }
     public CardDealer CardDealer { get; }
 
-    public Player()
+    public Player(CardDealer cardDealer)
     {
         Points = new Scores();
         OnHand = new List<Card>();
-        CardDealer = new CardDealer();
+        CardDealer = cardDealer;
     }
     
     //actions
     public void Hit()
     {
-        var newCard = CardDealer.DealCard();
-        OnHand.Add(newCard);
+        OnHand.Add(CardDealer.DealCard());
     }
 
     public void Stay()

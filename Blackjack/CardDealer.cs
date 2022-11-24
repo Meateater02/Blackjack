@@ -4,8 +4,8 @@ namespace Blackjack;
 public class CardDealer
 {
     private Deck Deck { get; }
-    public Player player { get; set; }
-    public Dealer dealer { get; set; }
+    //public Player Player { get; set; }
+    //public Dealer Dealer { get; set; }
 
     public CardDealer()
     {
@@ -15,7 +15,7 @@ public class CardDealer
     public Card DealCard()
     {
         Random random = new Random();
-        int index = random.Next(Deck.Cards.Count);
+        int index = random.Next(Deck.Cards.Count) - 1;
 
         return Deck.Cards[index];
     }
