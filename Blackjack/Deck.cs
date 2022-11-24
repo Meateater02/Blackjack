@@ -1,0 +1,23 @@
+namespace Blackjack;
+
+public class Deck
+{
+    public List<Card> Cards { get; }
+
+    public Deck()
+    {
+        Cards = new List<Card>();
+        InitialiseDeck();
+    }
+
+    private void InitialiseDeck()
+    {
+        foreach (Suit suit in Enum.GetValues(typeof(Suit)))
+        {
+            foreach (Number number in Enum.GetValues(typeof(Number)))
+            {
+                Cards.Add(new Card(suit, number));
+            }
+        }
+    }
+}
