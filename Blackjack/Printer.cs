@@ -25,15 +25,15 @@ public class Printer
     {
         if (player.Scores.TotalPoints < 21)
         {
-            Console.WriteLine(player.Dealer ? "Dealer is currently at " + player.Scores.TotalPoints : "You are currently at " + player.Scores.TotalPoints);
+            Console.WriteLine((player.IsDealer ? "Dealer is" : "You are") + " currently at " + player.Scores.TotalPoints);
         }
         else if (player.Scores.TotalPoints == 21)
         {
-            Console.WriteLine(player.Dealer ? "Dealer has hit Blackjack!" : "You have hit Blackjack!");
+            Console.WriteLine((player.IsDealer ? "Dealer has" : "You have") + " hit Blackjack!");
         }
         else
         {
-            Console.WriteLine(player.Dealer ? "Dealer is currently at Bust!" : "You are currently at Bust!");
+            Console.WriteLine((player.IsDealer ? "Dealer is" : "You are") + " currently at Bust!");
         }
         
         PrintOnHand(player.OnHand);
@@ -41,7 +41,7 @@ public class Printer
 
     public void PrintCardDrawn(Player player)
     {
-        Console.WriteLine(player.Dealer ? "Dealer draw " + player.OnHand.Last() : "You draw " + player.OnHand.Last());
+        Console.WriteLine((player.IsDealer ? "Dealer" : "You") + " draw " + player.OnHand.Last());
     }
 
     public void PrintGameEnd(Scoring scoringSystem)
@@ -55,12 +55,8 @@ public class Printer
                 Console.WriteLine("Dealer wins!");
                 break;
             case 0:
-                Console.WriteLine("Draw! ");
+                Console.WriteLine("Draw!");
                 break;
         }
-        
-        if (scoringSystem.WinLoseDraw() != -1)
-            scoringSystem.GameEnd = true;
     }
-    
 }

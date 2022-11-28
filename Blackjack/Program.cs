@@ -7,7 +7,7 @@ var cardDealer = new CardDealer();
 var player = new Player(cardDealer);
 var dealer = new Player(cardDealer)
 {
-    Dealer = true
+    IsDealer = true
 };
 var scoringSystem = new Scoring(player, dealer);
 var printer = new Printer();
@@ -18,18 +18,24 @@ cardDealer.Deck.ShuffleDeck();
 //start with player
 player.Start();
 
-while (!scoringSystem.GameEnd)
+while (!scoringSystem.IsGameEnd)
 {
     scoringSystem.DetermineAceValue(player);
     printer.PrintPointsStatus(player);
 
-    if (player.Scores.TotalPoints > 21)
+    if (player.Scores.TotalPoints >= 21)
         printer.PrintGameEnd(scoringSystem);
 
-    if (!scoringSystem.GameEnd)
+    if (!scoringSystem.IsGameEnd)
     {
-        printer.PrintOption();
-        var userInput = Convert.ToInt32(Console.ReadLine());
+        printer.PrintOption(); 
+        var readUserInput = Console.ReadLine();
+        int userInput;
+        while (!int.TryParse(readUserInput, out userInput))
+        {
+            Console.WriteLine("Invalid input! ");
+            readUserInput = Console.ReadLine();
+        }
 
         if (userInput == 1)
         {
@@ -38,7 +44,7 @@ while (!scoringSystem.GameEnd)
         }
         else if (userInput == 0)
         {
-            player.Stay = true;
+            player.IsStay = true;
             break;
         }
     }
@@ -47,16 +53,18 @@ while (!scoringSystem.GameEnd)
 //dealer's turn
 dealer.Start();
 
-while (!scoringSystem.GameEnd)
+while (!scoringSystem.IsGameEnd)
 {
     scoringSystem.DetermineAceValue(dealer);
     printer.PrintPointsStatus(dealer);
 
-    if (dealer.Scores.TotalPoints > 21)
+    if (dealer.Scores.TotalPoints >= 21)
         printer.PrintGameEnd(scoringSystem);
 
-    if (!scoringSystem.GameEnd)
+    if (!scoringSystem.IsGameEnd)
     {
+        Thread.Sleep(1000);
+        
         if (dealer.Scores.TotalPoints < 17)
         {
             dealer.Hit();
@@ -64,10 +72,9 @@ while (!scoringSystem.GameEnd)
         }
         else
         {
-            dealer.Stay = true;
+            dealer.IsStay = true;
+            printer.PrintGameEnd(scoringSystem);
             break;
         }
     }
 }
-
-printer.PrintGameEnd(scoringSystem);
