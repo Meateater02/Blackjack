@@ -1,32 +1,45 @@
+using System.Transactions;
+
 namespace Blackjack;
 
 //controls the action of the dealer 
 //keep hitting until the dealer reaches 17
 //stop only when the dealer's score is above 17
-public class Dealer
+public class Dealer 
 {
-    //public Action Action { get; set; }
-    public Scores Points { get; set; }
+    public Scores Scores { get; set; }
     public List<Card>OnHand { get; set; }
     public CardDealer CardDealer { get; }
 
     public Dealer(CardDealer cardDealer)
     {
-        Points = new Scores();
+        Scores = new Scores();
         OnHand = new List<Card>();
         CardDealer = cardDealer;
     }
 
+    public void Start()
+    {
+        var card1 = CardDealer.DealCard();
+        var card2 = CardDealer.DealCard();
+        OnHand.Add(card1);
+        OnHand.Add(card2);
+        Scores.AddScore(card1);
+        Scores.AddScore(card2);
+    }
+
     public void ChooseAction()
     {
-        if (Points.Points >= 17)
+        if (Scores.TotalPoints < 17)
         {
-            //Action.Hit();
-            OnHand.Add(CardDealer.DealCard());
+            //choose hit
+            var card = CardDealer.DealCard();
+            OnHand.Add(card);
+            Scores.AddScore(card);
         }
         else
         {
-            //Action.Stay();
+            //choose stay
         }
     }
 }

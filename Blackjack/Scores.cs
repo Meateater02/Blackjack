@@ -2,17 +2,15 @@ namespace Blackjack;
 
 public class Scores
 {
-    public int Points { get; set; }
+    public int TotalPoints { get; set; }
 
     public Scores()
     {
-        Points = 0;
+        TotalPoints = 0;
     }
     
     public void AddScore(Card card)
     {
-        Points += card.Value;
+        TotalPoints += card.Value;
     }
-
-    
 }
