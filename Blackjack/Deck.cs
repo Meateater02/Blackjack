@@ -2,7 +2,7 @@ namespace Blackjack;
 
 public class Deck
 {
-    public List<Card> Cards { get; }
+    public List<Card> Cards { get; private set; }
 
     public Deck()
     {
@@ -19,5 +19,11 @@ public class Deck
                 Cards.Add(new Card(suit, number));
             }
         }
+    }
+
+    public void ShuffleDeck()
+    {
+        Random rand = new Random();
+        Cards = Cards.OrderBy(_ => rand.Next()).ToList();
     }
 }
