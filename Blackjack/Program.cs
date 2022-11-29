@@ -2,24 +2,22 @@
 
 using Blackjack;
 
-//Variables
+//initialise variables
 var cardDealer = new CardDealer();
 var human = new Player(cardDealer);
 var dealer = new Player(cardDealer)
 {
     IsDealer = true
 };
-var writer = new ConsoleWriter();
 var scoringSystem = new Scoring(human, dealer);
-var printer = new Printer(writer);
+var printer = new Printer(new ConsoleWriter());
+var reader = new Reader(new ConsoleReader());
+
+//shuffle deck to start
+cardDealer.Deck.ShuffleDeck();
 
 //human starts first
 var player = human;
-
-//shuffles deck to start
-cardDealer.Deck.ShuffleDeck();
-
-//start with player
 player.Start();
 
 while (!scoringSystem.IsGameEnd)
@@ -38,27 +36,27 @@ while (!scoringSystem.IsGameEnd)
 
     if (!scoringSystem.IsGameEnd && !player.IsDealer)
     {
-        printer.PrintOption(); 
-        var readUserInput = Console.ReadLine();
-        int userInput;
-        while (!int.TryParse(readUserInput, out userInput) || !(userInput is >= 0 and <= 1))
+        printer.PrintOption();
+
+        var userInput = reader.ReadValidInt();
+
+        while (!(userInput is >= 0 and <= 1))
         {
             printer.PrintInvalidUserInput();
-            readUserInput = Console.ReadLine();
+            userInput = reader.ReadValidInt();
         }
 
-        if (userInput == 1)
+        switch (userInput)
         {
-            player.Hit();
-            printer.PrintCardDrawn(player);
-        }
-        else
-        {
-            player.IsStay = true;
-            
-            //dealer's turn to play
-            player = dealer;
-            player.Start();
+            case 1:
+                player.Hit();
+                printer.PrintCardDrawn(player);
+                break;
+            case 0:
+                player.IsStay = true;
+                player = dealer;
+                player.Start();
+                break;
         }
     }
     else if (!scoringSystem.IsGameEnd && player.IsDealer)
