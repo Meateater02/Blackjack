@@ -3,16 +3,16 @@ namespace Blackjack;
 //prints the results
 public class Printer
 {
-    private IWriter writer;
+    private IWriter _writer;
 
     public Printer(IWriter writer)
     {
-        this.writer = writer;
+        this._writer = writer;
     }
 
     public void PrintInvalidUserInput()
     {
-        writer.WriteLine("Invalid input! Please try again: ");
+        _writer.WriteLine("Invalid input! Please try again: ");
     }
 
     private void PrintOnHand(List<Card> onHand)
@@ -37,28 +37,28 @@ public class Printer
             onHandToString += card.ToString();
         }
 
-        writer.WriteLine("with the hand [" + onHandToString + "]");
-        writer.WriteLine("");
+        _writer.WriteLine("with the hand [" + onHandToString + "]");
+        _writer.WriteLine("");
     }
 
     public void PrintOption()
     {
-        writer.WriteLine("Hit or stay? (Hit = 1, Stay = 0)");
+        _writer.WriteLine("Hit or stay? (Hit = 1, Stay = 0)");
     }
 
     public void PrintPointsStatus(Player player)
     {
         if (player.Scores.TotalPoints < 21)
         {
-            writer.WriteLine((player.IsDealer ? "Dealer is" : "You are") + " currently at " + player.Scores.TotalPoints);
+            _writer.WriteLine((player.IsDealer ? "Dealer is" : "You are") + " currently at " + player.Scores.TotalPoints);
         }
         else if (player.Scores.TotalPoints == 21)
         {
-            writer.WriteLine((player.IsDealer ? "Dealer has" : "You have") + " hit Blackjack!");
+            _writer.WriteLine((player.IsDealer ? "Dealer has" : "You have") + " hit Blackjack!");
         }
         else
         {
-            writer.WriteLine((player.IsDealer ? "Dealer is" : "You are") + " currently at Bust!");
+            _writer.WriteLine((player.IsDealer ? "Dealer is" : "You are") + " currently at Bust!");
         }
         
         PrintOnHand(player.OnHand);
@@ -66,7 +66,8 @@ public class Printer
 
     public void PrintCardDrawn(Player player)
     {
-        writer.WriteLine((player.IsDealer ? "Dealer" : "You") + " draw " + player.OnHand.Last());
+        _writer.WriteLine((player.IsDealer ? "Dealer draws " : "You draw ") + player.OnHand.Last());
+        _writer.WriteLine("");
     }
 
     public void PrintGameEnd(Scoring scoringSystem)
@@ -74,13 +75,13 @@ public class Printer
         switch (scoringSystem.WinLoseDraw())
         {
             case 1:
-                writer.WriteLine("You beat the dealer!");
+                _writer.WriteLine("You beat the dealer!");
                 break;
             case 2:
-                writer.WriteLine("Dealer wins!");
+                _writer.WriteLine("Dealer wins!");
                 break;
             case 0:
-                writer.WriteLine("Draw!");
+                _writer.WriteLine("Draw!");
                 break;
         }
     }
