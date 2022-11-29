@@ -3,37 +3,62 @@ namespace Blackjack;
 //prints the results
 public class Printer
 {
+    private IWriter writer;
+
+    public Printer(IWriter writer)
+    {
+        this.writer = writer;
+    }
+
+    public void PrintInvalidUserInput()
+    {
+        writer.WriteLine("Invalid input! Please try again: ");
+    }
+
     private void PrintOnHand(List<Card> onHand)
     {
         var onHandToString = "";
+        //var cardToString = "";
         
         foreach (var card in onHand)
         {
+            // switch (card.Number)
+            // {
+            //     case Number.Ace:
+            //     case Number.Jack:
+            //     case Number.Queen:
+            //     case Number.King:
+            //         cardToString = "[\'" + card.Number.ToString().ToUpper() + "\', " + "\'" + card.Suit.ToString().ToUpper() + "\']";
+            //         break;
+            //     default:
+            //         cardToString = "[" + card.Value + ", " + "\'" + card.Suit.ToString().ToUpper() + "\']";
+            //         break;
+            // }
             onHandToString += card.ToString();
         }
 
-        Console.WriteLine("with the hand [" + onHandToString + "]");
-        Console.Write("\n");
+        writer.WriteLine("with the hand [" + onHandToString + "]");
+        writer.WriteLine("");
     }
 
     public void PrintOption()
     {
-        Console.Write("Hit or stay? (Hit = 1, Stay = 0)");
+        writer.WriteLine("Hit or stay? (Hit = 1, Stay = 0)");
     }
 
     public void PrintPointsStatus(Player player)
     {
         if (player.Scores.TotalPoints < 21)
         {
-            Console.WriteLine((player.IsDealer ? "Dealer is" : "You are") + " currently at " + player.Scores.TotalPoints);
+            writer.WriteLine((player.IsDealer ? "Dealer is" : "You are") + " currently at " + player.Scores.TotalPoints);
         }
         else if (player.Scores.TotalPoints == 21)
         {
-            Console.WriteLine((player.IsDealer ? "Dealer has" : "You have") + " hit Blackjack!");
+            writer.WriteLine((player.IsDealer ? "Dealer has" : "You have") + " hit Blackjack!");
         }
         else
         {
-            Console.WriteLine((player.IsDealer ? "Dealer is" : "You are") + " currently at Bust!");
+            writer.WriteLine((player.IsDealer ? "Dealer is" : "You are") + " currently at Bust!");
         }
         
         PrintOnHand(player.OnHand);
@@ -41,7 +66,7 @@ public class Printer
 
     public void PrintCardDrawn(Player player)
     {
-        Console.WriteLine((player.IsDealer ? "Dealer" : "You") + " draw " + player.OnHand.Last());
+        writer.WriteLine((player.IsDealer ? "Dealer" : "You") + " draw " + player.OnHand.Last());
     }
 
     public void PrintGameEnd(Scoring scoringSystem)
@@ -49,13 +74,13 @@ public class Printer
         switch (scoringSystem.WinLoseDraw())
         {
             case 1:
-                Console.WriteLine("You beat the dealer!");
+                writer.WriteLine("You beat the dealer!");
                 break;
             case 2:
-                Console.WriteLine("Dealer wins!");
+                writer.WriteLine("Dealer wins!");
                 break;
             case 0:
-                Console.WriteLine("Draw!");
+                writer.WriteLine("Draw!");
                 break;
         }
     }

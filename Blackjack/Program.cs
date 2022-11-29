@@ -4,13 +4,17 @@ using Blackjack;
 
 //Variables
 var cardDealer = new CardDealer();
-var player = new Player(cardDealer);
+var human = new Player(cardDealer);
 var dealer = new Player(cardDealer)
 {
     IsDealer = true
 };
-var scoringSystem = new Scoring(player, dealer);
-var printer = new Printer();
+var writer = new ConsoleWriter();
+var scoringSystem = new Scoring(human, dealer);
+var printer = new Printer(writer);
+
+//human starts first
+var player = human;
 
 //shuffles deck to start
 cardDealer.Deck.ShuffleDeck();
@@ -20,20 +24,26 @@ player.Start();
 
 while (!scoringSystem.IsGameEnd)
 {
+    //update the scoringSystem
+    if (!player.IsDealer)
+        human = player;
+    else
+        dealer = player;
+    
     scoringSystem.DetermineAceValue(player);
     printer.PrintPointsStatus(player);
 
     if (player.Scores.TotalPoints >= 21)
         printer.PrintGameEnd(scoringSystem);
 
-    if (!scoringSystem.IsGameEnd)
+    if (!scoringSystem.IsGameEnd && !player.IsDealer)
     {
         printer.PrintOption(); 
         var readUserInput = Console.ReadLine();
         int userInput;
-        while (!int.TryParse(readUserInput, out userInput))
+        while (!int.TryParse(readUserInput, out userInput) || !(userInput is >= 0 and <= 1))
         {
-            Console.WriteLine("Invalid input! ");
+            printer.PrintInvalidUserInput();
             readUserInput = Console.ReadLine();
         }
 
@@ -42,26 +52,16 @@ while (!scoringSystem.IsGameEnd)
             player.Hit();
             printer.PrintCardDrawn(player);
         }
-        else if (userInput == 0)
+        else
         {
             player.IsStay = true;
-            break;
+            
+            //dealer's turn to play
+            player = dealer;
+            player.Start();
         }
     }
-}
-
-//dealer's turn
-dealer.Start();
-
-while (!scoringSystem.IsGameEnd)
-{
-    scoringSystem.DetermineAceValue(dealer);
-    printer.PrintPointsStatus(dealer);
-
-    if (dealer.Scores.TotalPoints >= 21)
-        printer.PrintGameEnd(scoringSystem);
-
-    if (!scoringSystem.IsGameEnd)
+    else if (!scoringSystem.IsGameEnd && player.IsDealer)
     {
         Thread.Sleep(1000);
         
@@ -74,7 +74,6 @@ while (!scoringSystem.IsGameEnd)
         {
             dealer.IsStay = true;
             printer.PrintGameEnd(scoringSystem);
-            break;
         }
     }
 }
