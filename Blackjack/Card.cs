@@ -2,8 +2,8 @@ namespace Blackjack;
 
 public class Card
 {
-    public Suit Suit { get; set; }
-    public Number Number { get; set; }
+    private Suit Suit { get; set; }
+    private Number Number { get; set; }
     
     public int Value { get; set; }
 
@@ -19,15 +19,13 @@ public class Card
     {
         switch (Number)
         {
-            case Blackjack.Number.Ace:
-            case Blackjack.Number.Jack:
-            case Blackjack.Number.Queen:
-            case Blackjack.Number.King:
+            case Number.Ace:
+            case Number.Jack:
+            case Number.Queen:
+            case Number.King:
                 return "[\'" + Number.ToString().ToUpper() + "\', " + "\'" + Suit.ToString().ToUpper() + "\']";
-                break;
             default:
                 return "[" + Value + ", " + "\'" + Suit.ToString().ToUpper() + "\']";
-                break;
         }
     }
     
@@ -49,5 +47,4 @@ public class Card
                 break;
         }
     }
-
 }
