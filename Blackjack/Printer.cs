@@ -12,42 +12,29 @@ public class Printer
 
     public void PrintInvalidUserInput()
     {
-        _writer.WriteLine("Invalid input! Please try again: ");
+        _writer.Write("Invalid input! Please try again: ");
     }
 
     private void PrintOnHand(List<Card> onHand)
     {
         var onHandToString = "";
-        //var cardToString = "";
         
         foreach (var card in onHand)
         {
-            // switch (card.Number)
-            // {
-            //     case Number.Ace:
-            //     case Number.Jack:
-            //     case Number.Queen:
-            //     case Number.King:
-            //         cardToString = "[\'" + card.Number.ToString().ToUpper() + "\', " + "\'" + card.Suit.ToString().ToUpper() + "\']";
-            //         break;
-            //     default:
-            //         cardToString = "[" + card.Value + ", " + "\'" + card.Suit.ToString().ToUpper() + "\']";
-            //         break;
-            // }
-            onHandToString += card.ToString();
+            onHandToString += card;
         }
 
-        _writer.WriteLine("with the hand [" + onHandToString + "]");
-        _writer.WriteLine("");
+        _writer.Write("with the hand [" + onHandToString + "]\n\n");
     }
 
     public void PrintOption()
     {
-        _writer.WriteLine("Hit or stay? (Hit = 1, Stay = 0)");
+        _writer.Write("Hit or stay? (Hit = 1, Stay = 0)");
     }
 
     public void PrintPointsStatus(Player player)
     {
+        _writer.WriteLine("");
         if (player.Scores.TotalPoints < 21)
         {
             _writer.WriteLine((player.IsDealer ? "Dealer is" : "You are") + " currently at " + player.Scores.TotalPoints);
@@ -66,8 +53,7 @@ public class Printer
 
     public void PrintCardDrawn(Player player)
     {
-        _writer.WriteLine((player.IsDealer ? "Dealer draws " : "You draw ") + player.OnHand.Last());
-        _writer.WriteLine("");
+        _writer.Write((player.IsDealer ? "Dealer draws " : "You draw ") + player.OnHand.Last() + "\n\n");
     }
 
     public void PrintGameEnd(Scoring scoringSystem)
