@@ -6,4 +6,9 @@ public class ConsoleWriter : IWriter
     {
         Console.WriteLine(message);
     }
+
+    public void Write(string message)
+    {
+        Console.Write(message);
+    }
 }
