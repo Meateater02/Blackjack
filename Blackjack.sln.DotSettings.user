@@ -2,5 +2,15 @@
 	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=851c1bed_002D7ba8_002D40b3_002Db20d_002Dd411217e2478/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" IsActive="True" Name="GivenPlayerTurn_WhenPromptedForTurn_ThenShouldDisplayOptions" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;
   &lt;TestAncestor&gt;
     &lt;TestId&gt;xUnit::E3B1677A-3614-4EF8-9256-DDA93AE5EA8E::net6.0::TestProject1.PrinterTest.GivenPlayerTurn_WhenPromptedForTurn_ThenShouldDisplayOptions&lt;/TestId&gt;
+    &lt;TestId&gt;xUnit::E3B1677A-3614-4EF8-9256-DDA93AE5EA8E::net6.0::TestProject1.PlayerTest.GivenPlayerOnHandIsEmpty_WhenPlayerStarts_ThenPlayerOnHandShouldHaveTwoCards&lt;/TestId&gt;
+    &lt;TestId&gt;xUnit::E3B1677A-3614-4EF8-9256-DDA93AE5EA8E::net6.0::TestProject1.PlayerTest.GivenPlayerTurn_WhenPlayerHits_ThenPlayerGetsAnAdditionalCardOnHand&lt;/TestId&gt;
+    &lt;TestId&gt;xUnit::E3B1677A-3614-4EF8-9256-DDA93AE5EA8E::net6.0::TestProject1.PlayerTest.GivenGameJustStarted_WhenPlayerStarts_ThenPlayerOnHandShouldHaveTwoCards&lt;/TestId&gt;
+    &lt;TestId&gt;xUnit::E3B1677A-3614-4EF8-9256-DDA93AE5EA8E::net6.0::TestProject1.PlayerTest.GivenPlayerTurn_WhenPlayerHits_ThenPlayerGetsNextCardOnDeck&lt;/TestId&gt;
+    &lt;TestId&gt;xUnit::E3B1677A-3614-4EF8-9256-DDA93AE5EA8E::net6.0::TestProject1.ScoringTest.GivenGameHadProceeded_WhenEitherPlayerWin_ThenGameFinishes&lt;/TestId&gt;
+    &lt;TestId&gt;xUnit::E3B1677A-3614-4EF8-9256-DDA93AE5EA8E::net6.0::TestProject1.ScoringTest.GivenPlayerHasAceCardOnHand_WhenPlayerTotalPointsIsOver21_ThenAceValueIsOne&lt;/TestId&gt;
+    &lt;TestId&gt;xUnit::E3B1677A-3614-4EF8-9256-DDA93AE5EA8E::net6.0::TestProject1.ScoringTest.GivenPlayerHasAceCardOnHand_WhenPlayerTotalPointsIsNotOver21_ThenAceValueShouldRemainAsEleven&lt;/TestId&gt;
+    &lt;TestId&gt;xUnit::E3B1677A-3614-4EF8-9256-DDA93AE5EA8E::net6.0::TestProject1.ScoringTest.GivenGameHadProceeded_WhenEitherPlayerScoreIs21OrOver_ThenGameFinishes&lt;/TestId&gt;
+    &lt;TestId&gt;xUnit::E3B1677A-3614-4EF8-9256-DDA93AE5EA8E::net6.0::TestProject1.GameTest.GivenDealersPointsAreBelow17_WhenDealersTurn_ThenDealerHitAutomatically&lt;/TestId&gt;
+    &lt;TestId&gt;xUnit::E3B1677A-3614-4EF8-9256-DDA93AE5EA8E::net6.0::TestProject1.GameTest.GivenDealersPointsAreAbove17_WhenDealersTurn_ThenDealerAutomaticallyStay&lt;/TestId&gt;
   &lt;/TestAncestor&gt;
 &lt;/SessionState&gt;</s:String></wpf:ResourceDictionary>

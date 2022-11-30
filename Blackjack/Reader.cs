@@ -2,7 +2,7 @@ namespace Blackjack;
 
 public class Reader
 {
-    private IReader _reader;
+    private readonly IReader _reader;
 
     public Reader(IReader reader)
     {

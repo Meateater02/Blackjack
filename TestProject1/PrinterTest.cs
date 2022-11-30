@@ -19,4 +19,17 @@ public class PrinterTest
         //assert
         writerMock.Verify(writer => writer.WriteLine(expectedMessage));
     }
+
+    [Fact]
+    public void GivenPlayerHasCards_WhenPromptedToShowCardsOnHand_ThenShouldDisplayAllCards()
+    {
+        //arrange
+        var writerMock = new Mock<IWriter>();
+        var printer = new Printer(writerMock.Object);
+        
+        //act
+        
+        //assert
+        
+    }
 }
