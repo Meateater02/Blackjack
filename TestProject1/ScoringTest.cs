@@ -12,15 +12,13 @@ public class ScoringTest
     public void GivenGameHadProceeded_WhenEitherPlayerScoreIs21OrOver_ThenGameFinishes(int playerScore, int dealerScore)
     {
         //arrange
-        var cardDealer = new CardDealer();
-        var player = new Player(cardDealer);
-        var dealer = new Player(cardDealer);
+        var player = new Player();
+        var dealer = new Dealer();
         var scoringSystem = new Scoring(player, dealer);
 
         player.Scores.TotalPoints = playerScore;
         dealer.Scores.TotalPoints = dealerScore;
-        dealer.IsStay = true;
-
+        
         //act
         if (player.Scores.TotalPoints >= 21 || dealer.Scores.TotalPoints >= 21)
         {
@@ -34,14 +32,14 @@ public class ScoringTest
     public void GivenPlayerHasAceCardOnHand_WhenPlayerTotalPointsIsNotOver21_ThenAceValueShouldRemainAsEleven()
     {
         //arrange
-        var player = new Player(new CardDealer());
+        var player = new Player();
         player.OnHand.Add(new Card(Suit.Club, Number.Ace));
         player.OnHand.Add(new Card(Suit.Club, Number.Nine));
 
-        var scoringSystem = new Scoring(player, new Player(new CardDealer()));
+        var scoringSystem = new Scoring(player, new Dealer());
 
         //act
-        scoringSystem.DetermineAceValue(player);
+        scoringSystem.DetermineAceValue(player.OnHand);
 
         //assert
         Assert.Equal(11, player.OnHand[0].Value);
@@ -51,15 +49,15 @@ public class ScoringTest
     public void GivenPlayerHasAceCardOnHand_WhenPlayerTotalPointsIsOver21_ThenAceValueIsOne()
     {
         //arrange
-        var player = new Player(new CardDealer());
+        var player = new Player();
         player.OnHand.Add(new Card(Suit.Club, Number.Ace));
         player.OnHand.Add(new Card(Suit.Club, Number.King));
         player.OnHand.Add(new Card(Suit.Heart, Number.Jack));
 
-        var scoringSystem = new Scoring(player, new Player(new CardDealer()));
+        var scoringSystem = new Scoring(player, new Dealer());
 
         //act
-        scoringSystem.DetermineAceValue(player);
+        scoringSystem.DetermineAceValue(player.OnHand);
 
         //assert
         Assert.Equal(1, player.OnHand[0].Value);

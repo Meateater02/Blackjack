@@ -1,11 +1,10 @@
 namespace Blackjack;
 
-//deals the card to both the player and the dealer
+//deals the card to both the player and themselves
 public class Dealer : IPlayer
 {
     public Scores Scores { get; }
     public List<Card> OnHand { get; }
-    public bool IsStay { get; set; }
     public Deck Deck { get; }
     private int _index;
 

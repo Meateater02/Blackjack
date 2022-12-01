@@ -2,8 +2,8 @@ namespace Blackjack;
 
 public class Game
 {
-    private Player _player;
-    private Dealer _dealer;
+    public Player _player { get; }
+    public Dealer _dealer { get; }
     private readonly Scoring _scoringSystem;
     private readonly Printer _printer;
     private readonly Reader _reader;
@@ -110,7 +110,6 @@ public class Game
         }
         else
         {
-            _dealer.IsStay = true;
             _printer.PrintGameEnd(_scoringSystem);
         }
     }
