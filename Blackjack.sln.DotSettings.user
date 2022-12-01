@@ -1,5 +1,5 @@
 ﻿<wpf:ResourceDictionary xml:space="preserve" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:s="clr-namespace:System;assembly=mscorlib" xmlns:ss="urn:shemas-jetbrains-com:settings-storage-xaml" xmlns:wpf="http://schemas.microsoft.com/winfx/2006/xaml/presentation">
-	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=851c1bed_002D7ba8_002D40b3_002Db20d_002Dd411217e2478/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" IsActive="True" Name="GivenPlayerTurn_WhenPromptedForTurn_ThenShouldDisplayOptions" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;
+	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=851c1bed_002D7ba8_002D40b3_002Db20d_002Dd411217e2478/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" Name="GivenPlayerTurn_WhenPromptedForTurn_ThenShouldDisplayOptions" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;
   &lt;TestAncestor&gt;
     &lt;TestId&gt;xUnit::E3B1677A-3614-4EF8-9256-DDA93AE5EA8E::net6.0::TestProject1.PrinterTest.GivenPlayerTurn_WhenPromptedForTurn_ThenShouldDisplayOptions&lt;/TestId&gt;
     &lt;TestId&gt;xUnit::E3B1677A-3614-4EF8-9256-DDA93AE5EA8E::net6.0::TestProject1.PlayerTest.GivenPlayerOnHandIsEmpty_WhenPlayerStarts_ThenPlayerOnHandShouldHaveTwoCards&lt;/TestId&gt;
@@ -12,5 +12,9 @@
     &lt;TestId&gt;xUnit::E3B1677A-3614-4EF8-9256-DDA93AE5EA8E::net6.0::TestProject1.ScoringTest.GivenGameHadProceeded_WhenEitherPlayerScoreIs21OrOver_ThenGameFinishes&lt;/TestId&gt;
     &lt;TestId&gt;xUnit::E3B1677A-3614-4EF8-9256-DDA93AE5EA8E::net6.0::TestProject1.GameTest.GivenDealersPointsAreBelow17_WhenDealersTurn_ThenDealerHitAutomatically&lt;/TestId&gt;
     &lt;TestId&gt;xUnit::E3B1677A-3614-4EF8-9256-DDA93AE5EA8E::net6.0::TestProject1.GameTest.GivenDealersPointsAreAbove17_WhenDealersTurn_ThenDealerAutomaticallyStay&lt;/TestId&gt;
+    &lt;TestId&gt;xUnit::E3B1677A-3614-4EF8-9256-DDA93AE5EA8E::net6.0::TestProject1.GameTest.GivenUserChooseAction_WhenUserInputOne_ThenNewCardIsAddedToThePlayer&lt;/TestId&gt;
   &lt;/TestAncestor&gt;
+&lt;/SessionState&gt;</s:String>
+	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=e0bae303_002D03bc_002D4f11_002Dabe3_002D1615955c0c15/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" IsActive="True" Name="GivenUserChooseAction_WhenUserInputOne_ThenNewCardIsAddedToThePlayer" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;
+  &lt;Project Location="/Users/Davina.Phan/Blackjack/TestProject1" Presentation="&amp;lt;TestProject1&amp;gt;" /&gt;
 &lt;/SessionState&gt;</s:String></wpf:ResourceDictionary>

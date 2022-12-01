@@ -2,7 +2,7 @@ namespace Blackjack;
 
 public class Reader
 {
-    private readonly IReader _reader;
+    private IReader _reader;
 
     public Reader(IReader reader)
     {
@@ -13,7 +13,8 @@ public class Reader
     {
         var printer = new Printer(new ConsoleWriter());
         var readUserInput = _reader.ReadLine();
-        int userInput;
+
+        int.TryParse(readUserInput, out var userInput);
         
         while (!int.TryParse(readUserInput, out userInput))
         {

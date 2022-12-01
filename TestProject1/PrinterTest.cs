@@ -17,19 +17,19 @@ public class PrinterTest
         printer.PrintOption();
 
         //assert
-        writerMock.Verify(writer => writer.WriteLine(expectedMessage));
+        writerMock.Verify(writer => writer.Write(expectedMessage));
     }
 
-    [Fact]
-    public void GivenPlayerHasCards_WhenPromptedToShowCardsOnHand_ThenShouldDisplayAllCards()
-    {
-        //arrange
-        var writerMock = new Mock<IWriter>();
-        var printer = new Printer(writerMock.Object);
-        
-        //act
-        
-        //assert
-        
-    }
+    // [Fact]
+    // public void GivenPlayerHasCards_WhenPromptedToShowCardsOnHand_ThenShouldDisplayAllCards()
+    // {
+    //     //arrange
+    //     var writerMock = new Mock<IWriter>();
+    //     var printer = new Printer(writerMock.Object);
+    //     
+    //     //act
+    //     
+    //     //assert
+    //     
+    // }
 }

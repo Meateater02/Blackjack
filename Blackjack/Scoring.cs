@@ -4,10 +4,10 @@ namespace Blackjack;
 public class Scoring
 {
     private readonly Player _player;
-    private readonly Player _dealer;
+    private readonly Dealer _dealer;
     public bool IsGameEnd { get; private set; }
     
-    public Scoring(Player player, Player dealer)
+    public Scoring(Player player, Dealer dealer)
     {
         _player = player;
         _dealer = dealer;
@@ -36,17 +36,18 @@ public class Scoring
         return gameEnd;
     }
 
-    public void DetermineAceValue(Player player)
+    public int DetermineAceValue(List<Card> onHand)
     {
-        if (player.OnHand.Sum(card => card.Value) > 21)
+        if (onHand.Sum(card => card.Value) > 21)
         {
-            var index = player.OnHand.FindIndex(card => card.Value == 11);
+            var index = onHand.FindIndex(card => card.Value == 11);
 
             if (index != -1)
-            {
-                player.OnHand[index].Value = 1;
-                player.Scores.TotalPoints = player.OnHand.Sum(card => card.Value);
+            { 
+                onHand[index].Value = 1;
             }
         }
+        
+        return onHand.Sum(card => card.Value);
     }
 }

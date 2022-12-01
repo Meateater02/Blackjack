@@ -2,22 +2,17 @@ namespace Blackjack;
 
 public class Game
 {
-    private Player _human;
-    private Player _dealer;
-    private readonly CardDealer _cardDealer;
+    private Player _player;
+    private Dealer _dealer;
     private readonly Scoring _scoringSystem;
     private readonly Printer _printer;
     private readonly Reader _reader;
 
-    public Game(CardDealer cardDealer)
+    public Game()
     {
-        _cardDealer = cardDealer;
-        _human = new Player(cardDealer);
-        _dealer = new Player(cardDealer)
-        {
-            IsDealer = true
-        };
-        _scoringSystem = new Scoring(_human, _dealer);
+        _dealer = new Dealer();
+        _player = new Player();
+        _scoringSystem = new Scoring(_player, _dealer);
         _printer = new Printer(new ConsoleWriter());
         _reader = new Reader(new ConsoleReader());
     }
@@ -25,83 +20,97 @@ public class Game
     public void Play()
     {
         StartGame();
-        GamePlay();
+        PlayerTurn();
+        DealerTurn();
+        
     }
 
-    public void GamePlay()
+    private void StartGame()
     {
-        var player = _human;
-        
-        while (!_scoringSystem.IsGameEnd)
+        _dealer.Deck.ShuffleDeck();
+        _player.AddCard(_dealer.DealCard());
+        _player.AddCard(_dealer.DealCard());
+    }
+
+    private void PlayerTurn()
+    {
+        while (!_scoringSystem.IsGameEnd && !_player.IsStay)
         {
-            _scoringSystem.DetermineAceValue(player);
-            _printer.PrintPointsStatus(player);
-        
-            if (player.Scores.TotalPoints >= 21)
+            _player.Scores.TotalPoints = _scoringSystem.DetermineAceValue(_player.OnHand);
+            _printer.PrintPointsStatus(_player.Scores.TotalPoints, false);
+            _printer.PrintOnHand(_player.OnHand);
+
+            if (_player.Scores.TotalPoints >= 21)
             {
                 _printer.PrintGameEnd(_scoringSystem);
                 break;
             }
-        
-            if (!player.IsDealer) //human player
-            {
-                player = HumanAction(player);
-                _human = player;
-            }
-            else //dealer
-            {
-                DealerAction(player);
-                _dealer = player;
-            }
+
+            _printer.PrintOption();
+            PlayerAction(GetPlayerInput());
         }
     }
     
-    private void StartGame()
+    private void DealerTurn()
     {
-        _cardDealer.Deck.ShuffleDeck();
-        _human.Start();
+        _dealer.Hit();
+        _dealer.Hit();
+        
+        while (!_scoringSystem.IsGameEnd)
+        {
+            _dealer.Scores.TotalPoints = _scoringSystem.DetermineAceValue(_dealer.OnHand);
+            _printer.PrintPointsStatus(_dealer.Scores.TotalPoints, true);
+            _printer.PrintOnHand(_dealer.OnHand);
+
+            if (_dealer.Scores.TotalPoints >= 21)
+            {
+                _printer.PrintGameEnd(_scoringSystem);
+                break;
+            }
+            
+            DealerAction();
+        }
     }
 
-    public Player HumanAction(Player player)
+    public int GetPlayerInput()
     {
-        _printer.PrintOption();
-
         var userInput = _reader.ReadValidInt();
 
-        while (!(userInput is >= 0 and <= 1))
-        {
-            _printer.PrintInvalidUserInput();
-            userInput = _reader.ReadValidInt();
-        }
+         while (!(userInput is >= 0 and <= 1))
+         {
+             _printer.PrintInvalidUserInput();
+             userInput = _reader.ReadValidInt();
+         }
 
+        return userInput;
+    }
+
+    public void PlayerAction(int userInput)
+    {
         switch (userInput)
         {
             case 1:
-                player.Hit();
-                _printer.PrintCardDrawn(player);
+                _player.AddCard(_dealer.DealCard());
+                _printer.PrintCardDrawn(_player.OnHand, false);
                 break;
             case 0:
-                player.IsStay = true;
-                player = _dealer;
-                player.Start();
+                _player.IsStay = true;
                 break;
         }
-
-        return player;
     }
 
-    public void DealerAction(Player dealer)
+    public void DealerAction()
     {
         Thread.Sleep(1000);
         
-        if (dealer.Scores.TotalPoints < 17)
+        if (_dealer.Scores.TotalPoints < 17)
         {
-            dealer.Hit();
-            _printer.PrintCardDrawn(dealer);
+            _dealer.Hit();
+            _printer.PrintCardDrawn(_dealer.OnHand, true);
         }
         else
         {
-            dealer.IsStay = true;
+            _dealer.IsStay = true;
             _printer.PrintGameEnd(_scoringSystem);
         }
     }

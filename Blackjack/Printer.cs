@@ -9,13 +9,13 @@ public class Printer
     {
         this._writer = writer;
     }
-
+    
     public void PrintInvalidUserInput()
     {
         _writer.Write("Invalid input! Please try again: ");
     }
 
-    private void PrintOnHand(List<Card> onHand)
+    public void PrintOnHand(List<Card> onHand)
     {
         var onHandToString = "";
         
@@ -32,28 +32,26 @@ public class Printer
         _writer.Write("Hit or stay? (Hit = 1, Stay = 0)");
     }
 
-    public void PrintPointsStatus(Player player)
+    public void PrintPointsStatus(int totalPoints, bool isDealer)
     {
         _writer.WriteLine("");
-        if (player.Scores.TotalPoints < 21)
+        if (totalPoints < 21)
         {
-            _writer.WriteLine((player.IsDealer ? "Dealer is" : "You are") + " currently at " + player.Scores.TotalPoints);
+            _writer.WriteLine((isDealer ? "Dealer is" : "You are") + " currently at " + totalPoints);
         }
-        else if (player.Scores.TotalPoints == 21)
+        else if (totalPoints == 21)
         {
-            _writer.WriteLine((player.IsDealer ? "Dealer has" : "You have") + " hit Blackjack!");
+            _writer.WriteLine((isDealer ? "Dealer has" : "You have") + " hit Blackjack!");
         }
         else
         {
-            _writer.WriteLine((player.IsDealer ? "Dealer is" : "You are") + " currently at Bust!");
+            _writer.WriteLine((isDealer ? "Dealer is" : "You are") + " currently at Bust!");
         }
-        
-        PrintOnHand(player.OnHand);
     }
 
-    public void PrintCardDrawn(Player player)
+    public void PrintCardDrawn(List<Card> playerHand, bool isDealer)
     {
-        _writer.Write((player.IsDealer ? "Dealer draws " : "You draw ") + player.OnHand.Last() + "\n\n");
+        _writer.Write((isDealer ? "Dealer draws " : "You draw ") + playerHand.Last() + "\n");
     }
 
     public void PrintGameEnd(Scoring scoringSystem)

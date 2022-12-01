@@ -1,32 +1,20 @@
 namespace Blackjack;
 
-//reads player's action and execute them
-public class Player
+public class Player : IPlayer
 {
     public Scores Scores { get; }
     public List<Card>OnHand { get; }
-    private CardDealer CardDealer { get; }
-    public bool IsDealer { get; set; }
     public bool IsStay { get; set; }
 
-    public Player(CardDealer cardDealer)
+    public Player()
     {
         Scores = new Scores();
         OnHand = new List<Card>();
-        CardDealer = cardDealer;
-        IsDealer = false;
         IsStay = false;
     }
-    
-    public void Start()
+
+    public void AddCard(Card card)
     {
-        Hit();
-        Hit();
-    }
-    
-    public void Hit()
-    {
-        var card = CardDealer.DealCard();
         OnHand.Add(card);
         Scores.AddScore(card);
     }

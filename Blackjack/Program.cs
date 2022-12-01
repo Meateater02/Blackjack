@@ -2,7 +2,7 @@
 
 using Blackjack;
 
-var game = new Game(new CardDealer());
+var game = new Game();
 
 game.Play();
 
