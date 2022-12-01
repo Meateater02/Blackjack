@@ -9,6 +9,13 @@ public class Reader
         _reader = reader;
     }
 
+    // public int ReadValidInt2()
+    // {
+    //     int.TryParse(_reader.ReadLine(), out var userInput);
+    //
+    //     return userInput;
+    // }
+
     public int ReadValidInt()
     {
         var printer = new Printer(new ConsoleWriter());

@@ -7,7 +7,7 @@ public class Printer
 
     public Printer(IWriter writer)
     {
-        this._writer = writer;
+        _writer = writer;
     }
     
     public void PrintInvalidUserInput()
@@ -15,11 +15,11 @@ public class Printer
         _writer.Write("Invalid input! Please try again: ");
     }
 
-    public void PrintOnHand(List<Card> onHand)
+    public void PrintOnHand(List<Card> cards)
     {
         var onHandToString = "";
         
-        foreach (var card in onHand)
+        foreach (var card in cards)
         {
             onHandToString += card;
         }
@@ -32,26 +32,26 @@ public class Printer
         _writer.Write("Hit or stay? (Hit = 1, Stay = 0)");
     }
 
-    public void PrintPointsStatus(int totalPoints, bool isDealer)
+    public void PrintPointsStatus(Player player)
     {
         _writer.WriteLine("");
-        if (totalPoints < 21)
+        if (player.Scores.TotalPoints < 21)
         {
-            _writer.WriteLine((isDealer ? "Dealer is" : "You are") + " currently at " + totalPoints);
+            _writer.WriteLine((player.IsDealer ? "Dealer is" : "You are") + " currently at " + player.Scores.TotalPoints);
         }
-        else if (totalPoints == 21)
+        else if (player.Scores.TotalPoints == 21)
         {
-            _writer.WriteLine((isDealer ? "Dealer has" : "You have") + " hit Blackjack!");
+            _writer.WriteLine((player.IsDealer ? "Dealer has" : "You have") + " hit Blackjack!");
         }
         else
         {
-            _writer.WriteLine((isDealer ? "Dealer is" : "You are") + " currently at Bust!");
+            _writer.WriteLine((player.IsDealer ? "Dealer is" : "You are") + " currently at Bust!");
         }
     }
 
-    public void PrintCardDrawn(List<Card> playerHand, bool isDealer)
+    public void PrintCardDrawn(Player player)
     {
-        _writer.Write((isDealer ? "Dealer draws " : "You draw ") + playerHand.Last() + "\n");
+        _writer.Write((player.IsDealer ? "Dealer draws " : "You draw ") + player.OnHand.Last() + "\n");
     }
 
     public void PrintGameEnd(Scoring scoringSystem)

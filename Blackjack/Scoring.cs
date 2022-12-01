@@ -4,10 +4,10 @@ namespace Blackjack;
 public class Scoring
 {
     private readonly Player _player;
-    private readonly Dealer _dealer;
+    private readonly Player _dealer;
     public bool IsGameEnd { get; private set; }
     
-    public Scoring(Player player, Dealer dealer)
+    public Scoring(Player player, Player dealer)
     {
         _player = player;
         _dealer = dealer;
@@ -27,7 +27,7 @@ public class Scoring
             gameEnd = 1;
         else if ((_dealer.Scores.TotalPoints > _player.Scores.TotalPoints && _dealer.Scores.TotalPoints <= 21) || _player.Scores.TotalPoints > 21)
             gameEnd = 2;
-        else if ((_dealer.Scores.TotalPoints == _player.Scores.TotalPoints) && _dealer.Scores.TotalPoints <= 21)
+        else if ((_dealer.Scores.TotalPoints == _player.Scores.TotalPoints))
             gameEnd = 0;
 
         if (gameEnd != -1)

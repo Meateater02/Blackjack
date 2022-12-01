@@ -13,7 +13,7 @@ public class ScoringTest
     {
         //arrange
         var player = new Player();
-        var dealer = new Dealer();
+        var dealer = new Player();
         var scoringSystem = new Scoring(player, dealer);
 
         player.Scores.TotalPoints = playerScore;
@@ -36,7 +36,7 @@ public class ScoringTest
         player.OnHand.Add(new Card(Suit.Club, Number.Ace));
         player.OnHand.Add(new Card(Suit.Club, Number.Nine));
 
-        var scoringSystem = new Scoring(player, new Dealer());
+        var scoringSystem = new Scoring(player, new Player());
 
         //act
         scoringSystem.DetermineAceValue(player.OnHand);
@@ -54,7 +54,7 @@ public class ScoringTest
         player.OnHand.Add(new Card(Suit.Club, Number.King));
         player.OnHand.Add(new Card(Suit.Heart, Number.Jack));
 
-        var scoringSystem = new Scoring(player, new Dealer());
+        var scoringSystem = new Scoring(player, new Player());
 
         //act
         scoringSystem.DetermineAceValue(player.OnHand);
