@@ -1,4 +1,5 @@
 using Blackjack;
+using Xunit.Abstractions;
 
 namespace TestProject1;
 
@@ -42,12 +43,14 @@ public class GameTest
         game._human.AddCard(game._deck.DealCard());
         game._human.AddCard(game._deck.DealCard());
 
+        var userValidation = new UserValidation(new ConsoleReader(), new ConsoleWriter());
+
         var userInput = "1";
         var stringReader = new StringReader(userInput);
         Console.SetIn(stringReader);
 
         //act
-        game.HumanAction(game._human, game.GetValidPlayerInput());
+        game.HumanAction(game._human, userValidation.PromptUserInputForOneOrZero());
         
         //assert
         Assert.Equal(3, game._human.OnHand.Count);
@@ -63,6 +66,8 @@ public class GameTest
         game._human.AddCard(game._deck.DealCard());
         game._human.AddCard(game._deck.DealCard());
 
+        var userValidation = new UserValidation(new ConsoleReader(), new ConsoleWriter());
+        
         var userInput = "0";
         var stringReader = new StringReader(userInput);
         Console.SetIn(stringReader);
@@ -70,7 +75,7 @@ public class GameTest
         var expectedOnHand = game._human.OnHand.Count;
 
         //act
-        game.HumanAction(game._human, game.GetValidPlayerInput());
+        game.HumanAction(game._human, userValidation.PromptUserInputForOneOrZero());
         
         //assert
         Assert.Equal(expectedOnHand, game._human.OnHand.Count);
@@ -86,11 +91,11 @@ public class GameTest
     // {
     //     //arrange
     //     var game = new Game();
-    //     game._dealer.Deck.ShuffleDeck();
-    //     game._player.AddCard(game._dealer.DealCard());
-    //     game._player.AddCard(game._dealer.DealCard());
+    //     game._deck.ShuffleDeck();
+    //     game._human.AddCard(game._deck.DealCard());
+    //     game._human.AddCard(game._deck.DealCard());
     //     
-    //     var stringReader = new StringReader(userInput);
+    //     var stringReader = new StringReader("userInput");
     //     Console.SetIn(stringReader);
     //
     //     var stringWriter = new StringWriter();
@@ -100,9 +105,9 @@ public class GameTest
     //     var expectedMessage = "Invalid input! Please try again: ";
     //     
     //     //act
-    //     game.PlayerAction(game.GetValidPlayerInput());
+    //     game.HumanAction(game._human, game.GetValidPlayerInput());
     //     
     //     //assert
-    //     Assert.Equal(expectedMessage, actualMessage);
+    //     Assert.Matches(expectedMessage, actualMessage);
     // }
 }

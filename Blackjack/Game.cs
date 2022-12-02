@@ -7,7 +7,7 @@ public class Game
     public Deck _deck { get; }
     private readonly Scoring _scoringSystem;
     private readonly Printer _printer;
-    private readonly Reader _reader;
+    private readonly UserValidation _userValidation;
 
     public Game()
     {
@@ -19,33 +19,31 @@ public class Game
         _deck = new Deck();
         _scoringSystem = new Scoring(_human, _dealer);
         _printer = new Printer(new ConsoleWriter());
-        _reader = new Reader(new ConsoleReader());
+        _userValidation = new UserValidation(new ConsoleReader(), new ConsoleWriter());
     }
 
     public void Play()
     {
-        StartGame();
-        PlayGame();
-    }
-
-    private void StartGame()
-    {
         _deck.ShuffleDeck();
-        _human.AddCard(_deck.DealCard());
-        _human.AddCard(_deck.DealCard());
+        StartHand(_human);
+        PlayGame(_human);
+        StartHand(_dealer);
+        PlayGame(_dealer);
     }
 
-    private void PlayGame()
+    private void StartHand(Player player)
     {
-        var player = _human;
-        
-        while (!_scoringSystem.IsGameEnd)
+        player.AddCard(_deck.DealCard());
+        player.AddCard(_deck.DealCard());
+    }
+
+    private void PlayGame(Player player)
+    {
+        while (!_scoringSystem.IsGameEnd && !player.IsStay)
         {
             player.Scores.TotalPoints = _scoringSystem.DetermineAceValue(player.OnHand);
             _printer.PrintPointsStatus(player);
             _printer.PrintOnHand(player.OnHand);
-
-            //_printer.PrintGameEnd(_scoringSystem);
             
             if (player.Scores.TotalPoints >= 21)
             {
@@ -56,27 +54,13 @@ public class Game
             if (!_scoringSystem.IsGameEnd && !player.IsDealer)
             {
                 _printer.PrintOption();
-                player = HumanAction(player, GetValidPlayerInput());
+                player = HumanAction(player, _userValidation.PromptUserInputForOneOrZero());
             }
             else if (!_scoringSystem.IsGameEnd && player.IsDealer)
             {
                 DealerAction(player);
             }
-            
         }
-    }
-
-    public int GetValidPlayerInput()
-    {
-        var userInput = _reader.ReadValidInt();
-
-         while (!(userInput is >= 0 and <= 1))
-         {
-             _printer.PrintInvalidUserInput();
-             userInput = _reader.ReadValidInt();
-         }
-
-        return userInput;
     }
 
     public Player HumanAction(Player player, int userInput)
@@ -92,8 +76,6 @@ public class Game
                 player.IsStay = true;
                 _human = player;
                 player = _dealer;
-                player.AddCard(_deck.DealCard());
-                player.AddCard(_deck.DealCard());
                 break;
         }
 
