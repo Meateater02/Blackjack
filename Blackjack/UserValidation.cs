@@ -11,7 +11,7 @@ public class UserValidation
         _writer = writer;
     }
 
-    public int PromptUserInputForOneOrZero()
+    public int GetPlayerMove()
     {
         _writer.Write("Hit or stay? (Hit = 1, Stay = 0) ");
         
