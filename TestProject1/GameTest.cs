@@ -50,7 +50,7 @@ public class GameTest
         Console.SetIn(stringReader);
 
         //act
-        game.HumanAction(game._human, userValidation.PromptUserInputForOneOrZero());
+        game.HumanAction(game._human, userValidation.GetPlayerMove());
         
         //assert
         Assert.Equal(3, game._human.OnHand.Count);
@@ -75,7 +75,7 @@ public class GameTest
         var expectedOnHand = game._human.OnHand.Count;
 
         //act
-        game.HumanAction(game._human, userValidation.PromptUserInputForOneOrZero());
+        game.HumanAction(game._human, userValidation.GetPlayerMove());
         
         //assert
         Assert.Equal(expectedOnHand, game._human.OnHand.Count);

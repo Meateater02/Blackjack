@@ -53,8 +53,7 @@ public class Game
 
             if (!_scoringSystem.IsGameEnd && !player.IsDealer)
             {
-                _printer.PrintOption();
-                player = HumanAction(player, _userValidation.PromptUserInputForOneOrZero());
+                HumanAction(player, _userValidation.GetPlayerMove());
             }
             else if (!_scoringSystem.IsGameEnd && player.IsDealer)
             {
@@ -63,30 +62,27 @@ public class Game
         }
     }
 
-    public Player HumanAction(Player player, int userInput)
+    public void HumanAction(Player player, int userInput)
     {
         switch (userInput)
         {
             case 1:
                 player.AddCard(_deck.DealCard());
                 _printer.PrintCardDrawn(player);
-                _human = player;
                 break;
             case 0:
                 player.IsStay = true;
-                _human = player;
-                player = _dealer;
                 break;
         }
 
-        return player;
+        _human = player;
     }
 
     public void DealerAction(Player player)
     {
         Thread.Sleep(1000);
         
-        if (_dealer.Scores.TotalPoints < 17)
+        if (player.Scores.TotalPoints < 17)
         {
             player.AddCard(_deck.DealCard());
             _printer.PrintCardDrawn(player);
