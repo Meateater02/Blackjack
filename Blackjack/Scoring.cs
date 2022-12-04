@@ -14,23 +14,18 @@ public class Scoring
         IsGameEnd = false;
     }
 
-    public int WinLoseDraw()
+    public Winner WinLoseDraw()
     {
-        var gameEnd = -1; 
-        //where gameEnd:
-        //-1 = game continues
-        //0 = draw
-        //1 = player wins
-        //2 = dealer wins
+        var gameEnd = Winner.None;
 
         if ((_player.Scores.TotalPoints > _dealer.Scores.TotalPoints && _player.Scores.TotalPoints <= 21) || _dealer.Scores.TotalPoints > 21)
-            gameEnd = 1;
+            gameEnd = Winner.Player;
         else if ((_dealer.Scores.TotalPoints > _player.Scores.TotalPoints && _dealer.Scores.TotalPoints <= 21) || _player.Scores.TotalPoints > 21)
-            gameEnd = 2;
+            gameEnd = Winner.Dealer;
         else if ((_dealer.Scores.TotalPoints == _player.Scores.TotalPoints))
-            gameEnd = 0;
-
-        if (gameEnd != -1)
+            gameEnd = Winner.Draw;
+        
+        if(gameEnd != Winner.None)
             IsGameEnd = true;
 
         return gameEnd;

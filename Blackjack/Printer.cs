@@ -9,11 +9,6 @@ public class Printer
     {
         _writer = writer;
     }
-    
-    public void PrintInvalidUserInput()
-    {
-        _writer.Write("Invalid input! Please try again: ");
-    }
 
     public void PrintOnHand(List<Card> cards)
     {
@@ -27,10 +22,10 @@ public class Printer
         _writer.Write("with the hand [" + onHandToString + "]\n\n");
     }
 
-    public void PrintOption()
-    {
-        _writer.Write("Hit or stay? (Hit = 1, Stay = 0)");
-    }
+    // public void PrintOption()
+    // {
+    //     _writer.Write("Hit or stay? (Hit = 1, Stay = 0)");
+    // }
 
     public void PrintPointsStatus(Player player)
     {
@@ -58,13 +53,13 @@ public class Printer
     {
         switch (scoringSystem.WinLoseDraw())
         {
-            case 1:
+            case Winner.Player:
                 _writer.WriteLine("You beat the dealer!");
                 break;
-            case 2:
+            case Winner.Dealer:
                 _writer.WriteLine("Dealer wins!");
                 break;
-            case 0:
+            case Winner.Draw:
                 _writer.WriteLine("Draw!");
                 break;
         }
