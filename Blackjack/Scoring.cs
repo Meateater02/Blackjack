@@ -18,11 +18,11 @@ public class Scoring
     {
         var gameEnd = Winner.None;
 
-        if ((_player.Scores.TotalPoints > _dealer.Scores.TotalPoints && _player.Scores.TotalPoints <= 21) || _dealer.Scores.TotalPoints > 21)
+        if (((_player.Scores.TotalPoints > _dealer.Scores.TotalPoints && _player.Scores.TotalPoints <= 21) && _dealer.IsStay) || _dealer.Scores.TotalPoints > 21)
             gameEnd = Winner.Player;
-        else if ((_dealer.Scores.TotalPoints > _player.Scores.TotalPoints && _dealer.Scores.TotalPoints <= 21) || _player.Scores.TotalPoints > 21)
+        else if (((_dealer.Scores.TotalPoints > _player.Scores.TotalPoints && _dealer.Scores.TotalPoints <= 21) && _dealer.IsStay) || _player.Scores.TotalPoints > 21)
             gameEnd = Winner.Dealer;
-        else if ((_dealer.Scores.TotalPoints == _player.Scores.TotalPoints))
+        else if ((_dealer.Scores.TotalPoints == _player.Scores.TotalPoints) && _dealer.IsStay)
             gameEnd = Winner.Draw;
         
         if(gameEnd != Winner.None)

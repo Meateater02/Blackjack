@@ -44,12 +44,7 @@ public class Game
             player.Scores.TotalPoints = _scoringSystem.DetermineAceValue(player.OnHand);
             _printer.PrintPointsStatus(player);
             _printer.PrintOnHand(player.OnHand);
-            
-            if (player.Scores.TotalPoints >= 21)
-            {
-                _printer.PrintGameEnd(_scoringSystem);
-                break;
-            }
+            _printer.PrintGameEnd(_scoringSystem);
 
             if (!_scoringSystem.IsGameEnd && !player.IsDealer)
             {
