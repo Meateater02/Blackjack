@@ -22,11 +22,6 @@ public class Printer
         _writer.Write("with the hand [" + onHandToString + "]\n\n");
     }
 
-    // public void PrintOption()
-    // {
-    //     _writer.Write("Hit or stay? (Hit = 1, Stay = 0)");
-    // }
-
     public void PrintPointsStatus(Player player)
     {
         _writer.WriteLine("");
