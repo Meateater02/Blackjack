@@ -80,39 +80,4 @@ public class ScoringTest
         Assert.Equal(Winner.Dealer, actualWinner);
         Assert.True(scoringSystem.IsGameEnd);
     }
-    
-    [Fact]
-    public void GivenPlayerHasAceCardOnHand_WhenPlayerTotalPointsIsNotOver21_ThenAceValueShouldRemainAsEleven()
-    {
-        //arrange
-        var player = new Player();
-        player.OnHand.Add(new Card(Suit.Club, Number.Ace));
-        player.OnHand.Add(new Card(Suit.Club, Number.Nine));
-
-        var scoringSystem = new Scoring(player, new Player());
-
-        //act
-        scoringSystem.DetermineAceValue(player.OnHand);
-
-        //assert
-        Assert.Equal(11, player.OnHand[0].Value);
-    }
-
-    [Fact]
-    public void GivenPlayerHasAceCardOnHand_WhenPlayerTotalPointsIsOver21_ThenAceValueIsOne()
-    {
-        //arrange
-        var player = new Player();
-        player.OnHand.Add(new Card(Suit.Club, Number.Ace));
-        player.OnHand.Add(new Card(Suit.Club, Number.King));
-        player.OnHand.Add(new Card(Suit.Heart, Number.Jack));
-
-        var scoringSystem = new Scoring(player, new Player());
-
-        //act
-        scoringSystem.DetermineAceValue(player.OnHand);
-
-        //assert
-        Assert.Equal(1, player.OnHand[0].Value);
-    }
 }

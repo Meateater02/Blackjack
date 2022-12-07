@@ -30,19 +30,4 @@ public class Scoring
 
         return gameEnd;
     }
-
-    public int DetermineAceValue(List<Card> onHand)
-    {
-        if (onHand.Sum(card => card.Value) > 21)
-        {
-            var index = onHand.FindIndex(card => card.Value == 11);
-
-            if (index != -1)
-            { 
-                onHand[index].Value = 1;
-            }
-        }
-        
-        return onHand.Sum(card => card.Value);
-    }
 }

@@ -20,4 +20,9 @@ public class Player
         OnHand.Add(card);
         Scores.AddScore(card);
     }
+
+    public void DetermineAceValue()
+    {
+        Scores.AdjustAceValue(OnHand);
+    }
 }

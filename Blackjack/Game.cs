@@ -2,9 +2,9 @@ namespace Blackjack;
 
 public class Game
 {
-    public Player _human { get; set; }
-    public Player _dealer { get; set; }
-    public Deck _deck { get; }
+    private Player _human { get; set; }
+    private Player _dealer { get; set; }
+    private Deck _deck { get; }
     private readonly Scoring _scoringSystem;
     private readonly Printer _printer;
     private readonly UserValidation _userValidation;
@@ -24,7 +24,6 @@ public class Game
 
     public void Play()
     {
-        _deck.ShuffleDeck();
         StartHand(_human);
         PlayGame(_human);
         StartHand(_dealer);
@@ -41,7 +40,8 @@ public class Game
     {
         while (!_scoringSystem.IsGameEnd && !player.IsStay)
         {
-            player.Scores.TotalPoints = _scoringSystem.DetermineAceValue(player.OnHand);
+            player.DetermineAceValue();
+            //player.Scores.TotalPoints = _scoringSystem.DetermineAceValue(player.OnHand);
             _printer.PrintPointsStatus(player);
             _printer.PrintOnHand(player.OnHand);
             _printer.PrintGameEnd(_scoringSystem);
