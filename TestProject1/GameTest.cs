@@ -1,5 +1,5 @@
 using Blackjack;
-using Xunit.Abstractions;
+using Moq;
 
 namespace TestProject1;
 
@@ -82,32 +82,21 @@ public class GameTest
         Assert.True(game._human.IsStay);
     }
 
-    // [Theory]
-    // [InlineData("hello")]
-    // [InlineData("1ne")]
-    // [InlineData("[.;lk,l")]
-    // [InlineData("one")]
-    // public void GivenUserChooseAction_WhenInputIsInvalid_ThenErrorMessageIsDisplayed(string userInput)
-    // {
-    //     //arrange
-    //     var game = new Game();
-    //     game._deck.ShuffleDeck();
-    //     game._human.AddCard(game._deck.DealCard());
-    //     game._human.AddCard(game._deck.DealCard());
-    //     
-    //     var stringReader = new StringReader("userInput");
-    //     Console.SetIn(stringReader);
-    //
-    //     var stringWriter = new StringWriter();
-    //     Console.SetOut(stringWriter);
-    //
-    //     var actualMessage = stringWriter.ToString();
-    //     var expectedMessage = "Invalid input! Please try again: ";
-    //     
-    //     //act
-    //     game.HumanAction(game._human, game.GetValidPlayerInput());
-    //     
-    //     //assert
-    //     Assert.Matches(expectedMessage, actualMessage);
-    // }
+    [Fact]
+    public void GivenPlayerHit_WhenPlayerGotBlackjack_ThenGameEnds()
+    {
+        //arrange
+        var mockWriter = new Mock<IWriter>();
+        var mockReader = new Mock<IReader>();
+        var mockRandom = new Mock<IRandomiser>();
+        var game = new Game(mockWriter.Object, mockReader.Object, mockRandom.Object);
+        var stringWriter = new StringWriter();
+        Console.SetOut(stringWriter);
+
+        //act
+
+
+        //assert
+
+    }
 }

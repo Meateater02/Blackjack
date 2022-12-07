@@ -9,17 +9,17 @@ public class Game
     private readonly Printer _printer;
     private readonly UserValidation _userValidation;
 
-    public Game()
+    public Game(IWriter writer, IReader reader, IRandomiser randomiser)
     {
         _dealer = new Player()
         {
             IsDealer = true
         };
         _human = new Player();
-        _deck = new Deck();
+        _deck = new Deck(randomiser);
         _scoringSystem = new Scoring(_human, _dealer);
-        _printer = new Printer(new ConsoleWriter());
-        _userValidation = new UserValidation(new ConsoleReader(), new ConsoleWriter());
+        _printer = new Printer(writer);
+        _userValidation = new UserValidation(reader, writer);
     }
 
     public void Play()

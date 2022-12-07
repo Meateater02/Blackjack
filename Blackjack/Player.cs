@@ -1,6 +1,6 @@
 namespace Blackjack;
 
-public class Player : IPlayer
+public class Player
 {
     public Scores Scores { get; }
     public List<Card>OnHand { get; }

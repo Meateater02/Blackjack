@@ -1,4 +1,7 @@
 ﻿<wpf:ResourceDictionary xml:space="preserve" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:s="clr-namespace:System;assembly=mscorlib" xmlns:ss="urn:shemas-jetbrains-com:settings-storage-xaml" xmlns:wpf="http://schemas.microsoft.com/winfx/2006/xaml/presentation">
+	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=0653cd07_002Dd641_002D4cfc_002D9279_002D3b043e184be4/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" Name="GivenPlayerTurn_WhenInvalidUserInputs_ThenTurnIsInValid #3" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;
+  &lt;Project Location="/Users/Davina.Phan/Blackjack/TestProject1" Presentation="&amp;lt;TestProject1&amp;gt;" /&gt;
+&lt;/SessionState&gt;</s:String>
 	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=851c1bed_002D7ba8_002D40b3_002Db20d_002Dd411217e2478/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" Name="GivenPlayerTurn_WhenPromptedForTurn_ThenShouldDisplayOptions" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;
   &lt;TestAncestor&gt;
     &lt;TestId&gt;xUnit::E3B1677A-3614-4EF8-9256-DDA93AE5EA8E::net6.0::TestProject1.PrinterTest.GivenPlayerTurn_WhenPromptedForTurn_ThenShouldDisplayOptions&lt;/TestId&gt;
@@ -15,6 +18,41 @@
     &lt;TestId&gt;xUnit::E3B1677A-3614-4EF8-9256-DDA93AE5EA8E::net6.0::TestProject1.GameTest.GivenUserChooseAction_WhenUserInputOne_ThenNewCardIsAddedToThePlayer&lt;/TestId&gt;
   &lt;/TestAncestor&gt;
 &lt;/SessionState&gt;</s:String>
-	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=e0bae303_002D03bc_002D4f11_002Dabe3_002D1615955c0c15/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" IsActive="True" Name="GivenUserChooseAction_WhenUserInputOne_ThenNewCardIsAddedToThePlayer" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;
+	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=9f92815d_002D7a30_002D4b24_002D961c_002Dc61de5368caf/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" Name="PrinterTest" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;
+  &lt;TestAncestor&gt;
+    &lt;TestId&gt;xUnit::E3B1677A-3614-4EF8-9256-DDA93AE5EA8E::net6.0::TestProject1.PrinterTest&lt;/TestId&gt;
+    &lt;TestId&gt;xUnit::E3B1677A-3614-4EF8-9256-DDA93AE5EA8E::net6.0::TestProject1.UserValidationTest&lt;/TestId&gt;
+  &lt;/TestAncestor&gt;
+&lt;/SessionState&gt;</s:String>
+	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=c10159e3_002Dc6fc_002D46c8_002Da155_002D5dbee89e4bee/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" Name="GivenPlayerTurn_WhenValidUserInputs_ThenTurnIsValid" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;
   &lt;Project Location="/Users/Davina.Phan/Blackjack/TestProject1" Presentation="&amp;lt;TestProject1&amp;gt;" /&gt;
+&lt;/SessionState&gt;</s:String>
+	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=c226329b_002D8640_002D4962_002D9bca_002D29c3facf04a7/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" Name="GivenPlayerTurn_WhenInvalidUserInputs_ThenTurnIsInValid #4" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;
+  &lt;TestAncestor&gt;
+    &lt;TestId&gt;xUnit::E3B1677A-3614-4EF8-9256-DDA93AE5EA8E::net6.0::TestProject1.UserValidationTest.GivenPlayerTurn_WhenInvalidUserInputs_ThenTurnIsInValid&lt;/TestId&gt;
+  &lt;/TestAncestor&gt;
+&lt;/SessionState&gt;</s:String>
+	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=c48697e0_002D598f_002D4e65_002Da348_002D32e3584aa8d4/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" IsActive="True" Name="GivenPlayerTurn_WhenInvalidUserInputs_ThenTurnIsInValid #5" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;
+  &lt;Project Location="/Users/Davina.Phan/Blackjack/TestProject1" Presentation="&amp;lt;TestProject1&amp;gt;" /&gt;
+&lt;/SessionState&gt;</s:String>
+	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=e0bae303_002D03bc_002D4f11_002Dabe3_002D1615955c0c15/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" Name="GivenUserChooseAction_WhenUserInputOne_ThenNewCardIsAddedToThePlayer" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;
+  &lt;Project Location="/Users/Davina.Phan/Blackjack/TestProject1" Presentation="&amp;lt;TestProject1&amp;gt;" /&gt;
+&lt;/SessionState&gt;</s:String>
+	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=ea0d9fcb_002D886f_002D415e_002D8b25_002Dba7f280d02a3/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" Name="GivenPlayerTurn_WhenInvalidUserInputs_ThenTurnIsInValid" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;
+  &lt;TestAncestor&gt;
+    &lt;TestId&gt;xUnit::E3B1677A-3614-4EF8-9256-DDA93AE5EA8E::net6.0::TestProject1.UserValidationTest.GivenPlayerTurn_WhenInvalidUserInputs_ThenTurnIsInValid&lt;/TestId&gt;
+  &lt;/TestAncestor&gt;
+&lt;/SessionState&gt;</s:String>
+	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=f821d833_002D1cd1_002D4666_002Db5b0_002D79ece4fb244c/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" Name="UserValidationTest" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;
+  &lt;TestAncestor&gt;
+    &lt;TestId&gt;xUnit::E3B1677A-3614-4EF8-9256-DDA93AE5EA8E::net6.0::TestProject1.UserValidationTest&lt;/TestId&gt;
+  &lt;/TestAncestor&gt;
+&lt;/SessionState&gt;</s:String>
+	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=fd0a24c2_002D5769_002D425f_002Db476_002Dbc6bcd163506/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" Name="GivenDealerHasNotStayed_WhenEitherPlayerScoreIsBlackJackOrBust_ThenGameFinishes" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;
+  &lt;Project Location="/Users/Davina.Phan/Blackjack/TestProject1" Presentation="&amp;lt;TestProject1&amp;gt;" /&gt;
+&lt;/SessionState&gt;</s:String>
+	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=fe3aac71_002D6249_002D46ab_002D88d8_002D29f3fec2b808/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" Name="GivenPlayerTurn_WhenInvalidUserInputs_ThenTurnIsInValid #2" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;
+  &lt;TestAncestor&gt;
+    &lt;TestId&gt;xUnit::E3B1677A-3614-4EF8-9256-DDA93AE5EA8E::net6.0::TestProject1.UserValidationTest.GivenPlayerTurn_WhenInvalidUserInputs_ThenTurnIsInValid&lt;/TestId&gt;
+  &lt;/TestAncestor&gt;
 &lt;/SessionState&gt;</s:String></wpf:ResourceDictionary>
