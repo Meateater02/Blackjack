@@ -4,20 +4,20 @@ namespace TestProject1.Fake;
 
 public class WriterFake : IWriter
 {
-    public List<string> buffer { get; }
+    public List<string> Buffer { get; }
 
     public WriterFake()
     {
-        buffer = new List<string>();
+        Buffer = new List<string>();
     }
     
     public void WriteLine(string message)
     {
-        buffer.Add(message + "\n");
+        Buffer.Add(message + "\n");
     }
 
     public void Write(string message)
     {
-        buffer.Add(message);
+        Buffer.Add(message);
     }
 }

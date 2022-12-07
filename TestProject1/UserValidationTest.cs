@@ -42,8 +42,8 @@ public class UserValidationTest
         
         var actualReturn = userValidation.GetPlayerMove();
         
-        Assert.Equal(expectedPromptMessage, writerFake.buffer[0]);
-        Assert.Equal(expectedErrorMessage, writerFake.buffer[1]);
+        Assert.Equal(expectedPromptMessage, writerFake.Buffer[0]);
+        Assert.Equal(expectedErrorMessage, writerFake.Buffer[1]);
         Assert.Equal(expectedReturn, actualReturn);
     }
     
