@@ -1,9 +1,9 @@
 namespace Blackjack;
 
-public class Card
+public class Card: IEquatable<Card>
 {
-    private Suit Suit { get; set; }
-    private Number Number { get; set; }
+    public Suit Suit { get; }
+    public Number Number { get; }
     
     public int Value { get; set; }
 
@@ -46,5 +46,25 @@ public class Card
                 Value = (int)Number;
                 break;
         }
+    }
+
+    public bool Equals(Card? other)
+    {
+        if (ReferenceEquals(null, other)) return false;
+        if (ReferenceEquals(this, other)) return true;
+        return Suit == other.Suit && Number == other.Number && Value == other.Value;
+    }
+
+    public override bool Equals(object? obj)
+    {
+        if (ReferenceEquals(null, obj)) return false;
+        if (ReferenceEquals(this, obj)) return true;
+        if (obj.GetType() != this.GetType()) return false;
+        return Equals((Card)obj);
+    }
+
+    public override int GetHashCode()
+    {
+        return HashCode.Combine((int)Suit, (int)Number, Value);
     }
 }
