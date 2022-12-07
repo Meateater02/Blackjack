@@ -1,6 +1,8 @@
 using System.Runtime.InteropServices;
+using System.Transactions;
 using Blackjack;
 using Moq;
+using TestProject1.Fake;
 
 namespace TestProject1;
 
@@ -26,6 +28,24 @@ public class UserValidationTest
         writerMock.Verify(writer => writer.Write(expectedMessage));
         Assert.Equal(expectedUserMove, actualUserMove);
     }
+
+    [Fact]
+    public void GivenPlayerInput_WhenErrorMessageIsPromptAndPlayerEntersValid_ThenShouldReturnValidPlayerMove()
+    {
+        var fakeInput = new List<string> { "one", "1" };
+        var readerFake = new ReaderFake(fakeInput);
+        var writerFake = new WriterFake();
+        var userValidation = new UserValidation(readerFake, writerFake);
+        var expectedPromptMessage = "Hit or stay? (Hit = 1, Stay = 0) ";
+        var expectedErrorMessage = "Invalid input! Please try again: (Hit = 1, Stay = 0) ";
+        var expectedReturn = 1;
+        
+        var actualReturn = userValidation.GetPlayerMove();
+        
+        Assert.Equal(expectedPromptMessage, writerFake.buffer[0]);
+        Assert.Equal(expectedErrorMessage, writerFake.buffer[1]);
+        Assert.Equal(expectedReturn, actualReturn);
+    }
     
     [Fact]
     public void GivenPlayerTurn_WhenInvalidUserInputs_ThenTurnIsInValid()
@@ -39,13 +59,12 @@ public class UserValidationTest
         readerMock.SetupSequence(reader => reader.ReadLine())
             .Returns("se ag")
             .Returns("1");
-
+        
         //act
         userValidation.GetPlayerMove();
-
-        //assert
-        writerMock.Verify(writer => writer.Write(expectedErrorMessage));
-        writerMock.Verify(writer => writer.Write(expectedPromptMessage));
         
+        //assert
+        writerMock.Verify(writer => writer.Write(expectedPromptMessage));
+        writerMock.Verify(writer => writer.Write(expectedErrorMessage));
     }
 }
