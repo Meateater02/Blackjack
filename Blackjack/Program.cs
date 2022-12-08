@@ -6,6 +6,7 @@ using Blackjack;
 var writer = new ConsoleWriter();
 var reader = new ConsoleReader();
 var random = new Randomiser();
-var game = new Game(writer, reader, random);
+var deck = new Deck(random);
+var game = new Game(writer, reader, deck);
 
 game.Play();

@@ -13,7 +13,8 @@ public class PrinterTest
         var player = new Player();
         var writerMock = new Mock<IWriter>();
         var printer = new Printer(writerMock.Object);
-        player.Scores.TotalPoints = 21;
+        player.AddCard(new Card(Suit.Club,Number.Ace));
+        player.AddCard(new Card(Suit.Club,Number.Ten));
         var expectedMessage = "You have hit Blackjack!";
 
         //act
@@ -65,19 +66,15 @@ public class PrinterTest
         writerMock.Verify(writer => writer.Write(expectedDisplayCards));
     }
 
-    [Theory]
-    [InlineData(16)]
-    [InlineData(17)]
-    [InlineData(19)]
-    [InlineData(14)]
-    [InlineData(20)]
-    public void GivenPlayerHasCardsOnHand_WhenPrintPointsStatusIsCalled_ThenCardPointsAreDisplayedCorrectly(int scores)
+    [Fact]
+    public void GivenPlayerHasCardsOnHand_WhenPrintPointsStatusIsCalled_ThenCardPointsAreDisplayedCorrectly()
     {
         var player = new Player();
-        player.Scores.TotalPoints = scores;
+        var deck = new Deck(new Randomiser());
+        player.AddCard(deck.DealCard());
         var writerMock = new Mock<IWriter>();
         var printer = new Printer(writerMock.Object);
-        var expectedMessage = "You are currently at " + scores;
+        var expectedMessage = "You are currently at " + player.Scores.TotalPoints;
 
         printer.PrintPointsStatus(player);
         

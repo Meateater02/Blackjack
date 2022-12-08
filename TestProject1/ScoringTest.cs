@@ -1,3 +1,4 @@
+using System.Runtime.InteropServices;
 using Blackjack;
 
 namespace TestProject1;
@@ -40,17 +41,20 @@ public class ScoringTest
     }
     
     [Theory]
-    [InlineData(21, 18)] //player blackjack
-    [InlineData(17, 25)] //dealer bust
-    public void GivenDealerHasNotStayed_WhenPlayerScoreIsBlackJackOrDealerBust_ThenPlayerWins(int playerScore, int dealerScore)
+    [InlineData(Number.Jack, Number.Ace, Number.Five, Number.Ten, Number.Three)]
+    [InlineData(Number.Queen, Number.Seven, Number.Six, Number.Ten, Number.Seven)]
+    public void GivenDealerHasNotStayed_WhenPlayerScoreIsBlackJackOrDealerBust_ThenPlayerWins(Number playerNum1, Number playerNum2, Number dealerNum1, Number dealerNum2, Number dealerNum3)
     {
         //arrange
         var player = new Player();
         var dealer = new Player();
         var scoringSystem = new Scoring(player, dealer);
 
-        player.Scores.TotalPoints = playerScore;
-        dealer.Scores.TotalPoints = dealerScore;
+        player.AddCard(new Card(Suit.Club, playerNum1));
+        player.AddCard(new Card(Suit.Diamond, playerNum2));
+        dealer.AddCard(new Card(Suit.Heart, dealerNum1));
+        dealer.AddCard(new Card(Suit.Spade, dealerNum2));
+        dealer.AddCard(new Card(Suit.Spade, dealerNum3));
         
         //act
         Winner actualWinner = scoringSystem.WinLoseDraw();
@@ -61,21 +65,24 @@ public class ScoringTest
     }
     
     [Theory]
-    [InlineData(18, 21)] //dealer blackjack
-    [InlineData(24, 14)] //player bust
-    public void GivenDealerHasNotStayed_WhenDealerScoreIsBlackJackOrPlayerBust_ThenDealerWins(int playerScore, int dealerScore)
+    [InlineData(Number.Eight, Number.Seven, Number.Three, Number.Ace, Number.King)]
+    [InlineData(Number.King, Number.Queen, Number.Four, Number.Ten, Number.Four)]
+    public void GivenDealerHasNotStayed_WhenDealerScoreIsBlackJackOrPlayerBust_ThenDealerWins(Number playerNum1, Number playerNum2, Number playerNum3, Number dealerNum1, Number dealerNum2)
     {
         //arrange
         var player = new Player();
         var dealer = new Player();
         var scoringSystem = new Scoring(player, dealer);
 
-        player.Scores.TotalPoints = playerScore;
-        dealer.Scores.TotalPoints = dealerScore;
+        player.AddCard(new Card(Suit.Club, playerNum1));
+        player.AddCard(new Card(Suit.Diamond, playerNum2));
+        player.AddCard(new Card(Suit.Diamond, playerNum3));
+        dealer.AddCard(new Card(Suit.Heart, dealerNum1));
+        dealer.AddCard(new Card(Suit.Spade, dealerNum2));
         
         //act
         Winner actualWinner = scoringSystem.WinLoseDraw();
-
+    
         //assert
         Assert.Equal(Winner.Dealer, actualWinner);
         Assert.True(scoringSystem.IsGameEnd);

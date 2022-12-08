@@ -2,21 +2,21 @@ namespace Blackjack;
 
 public class Game
 {
-    private Player _human { get; set; }
-    private Player _dealer { get; set; }
-    private Deck _deck { get; }
+    private Player _human;
+    private Player _dealer;
+    private readonly IDeck _deck;
     private readonly Scoring _scoringSystem;
     private readonly Printer _printer;
     private readonly UserValidation _userValidation;
 
-    public Game(IWriter writer, IReader reader, IRandomiser randomiser)
+    public Game(IWriter writer, IReader reader, IDeck deck)
     {
         _dealer = new Player()
         {
             IsDealer = true
         };
         _human = new Player();
-        _deck = new Deck(randomiser);
+        _deck = deck;
         _scoringSystem = new Scoring(_human, _dealer);
         _printer = new Printer(writer);
         _userValidation = new UserValidation(reader, writer);
@@ -26,7 +26,10 @@ public class Game
     {
         StartHand(_human);
         PlayGame(_human);
-        StartHand(_dealer);
+
+        if (!_scoringSystem.IsGameEnd)
+            StartHand(_dealer);
+        
         PlayGame(_dealer);
     }
 
@@ -41,7 +44,6 @@ public class Game
         while (!_scoringSystem.IsGameEnd && !player.IsStay)
         {
             player.DetermineAceValue();
-            //player.Scores.TotalPoints = _scoringSystem.DetermineAceValue(player.OnHand);
             _printer.PrintPointsStatus(player);
             _printer.PrintOnHand(player.OnHand);
             _printer.PrintGameEnd(_scoringSystem);
@@ -57,7 +59,7 @@ public class Game
         }
     }
 
-    public void HumanAction(Player player, int userInput)
+    private void HumanAction(Player player, int userInput)
     {
         switch (userInput)
         {
@@ -73,7 +75,7 @@ public class Game
         _human = player;
     }
 
-    public void DealerAction(Player player)
+    private void DealerAction(Player player)
     {
         Thread.Sleep(1000);
         

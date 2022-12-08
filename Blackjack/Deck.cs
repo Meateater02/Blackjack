@@ -1,6 +1,6 @@
 namespace Blackjack;
 
-public class Deck
+public class Deck : IDeck
 {
     public List<Card> Cards { get; private set; }
     private IRandomiser _randomiser;

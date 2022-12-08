@@ -1,102 +1,147 @@
 using Blackjack;
 using Moq;
+using TestProject1.Fake;
 
 namespace TestProject1;
 
 public class GameTest
 {
     [Fact]
-    public void GivenDealersPointsAreBelow17_WhenDealersTurn_ThenDealerHitAutomatically()
-    {
-        //arrange
-        var game = new Game();
-
-        game._dealer.Scores.TotalPoints = 15;
-        
-        //act
-        game.DealerAction(game._dealer);
-        
-        //assert
-        Assert.Single(game._dealer.OnHand);
-    }
-    
-    [Fact]
-    public void GivenDealersPointsAreAbove17_WhenDealersTurn_ThenDealerAutomaticallyStay()
-    {
-        //arrange
-        var game = new Game();
-        game._dealer.Scores.TotalPoints = 20;
-
-        //act
-        game.DealerAction(game._dealer);
-        
-        //assert
-        Assert.Empty(game._dealer.OnHand);
-    }
-
-    [Fact]
-    public void GivenUserChooseAction_WhenUserChooseHit_ThenNewCardIsAddedToThePlayer()
-    {
-        //arrange
-        var game = new Game();
-        game._deck.ShuffleDeck();
-        game._human.AddCard(game._deck.DealCard());
-        game._human.AddCard(game._deck.DealCard());
-
-        var userValidation = new UserValidation(new ConsoleReader(), new ConsoleWriter());
-
-        var userInput = "1";
-        var stringReader = new StringReader(userInput);
-        Console.SetIn(stringReader);
-
-        //act
-        game.HumanAction(game._human, userValidation.GetPlayerMove());
-        
-        //assert
-        Assert.Equal(3, game._human.OnHand.Count);
-        Assert.False(game._human.IsStay);
-    }
-    
-    [Fact]
-    public void GivenUserChooseAction_WhenUserChooseStay_ThenNoCardIsAddedToThePlayer()
-    {
-        //arrange
-        var game = new Game();
-        game._deck.ShuffleDeck();
-        game._human.AddCard(game._deck.DealCard());
-        game._human.AddCard(game._deck.DealCard());
-
-        var userValidation = new UserValidation(new ConsoleReader(), new ConsoleWriter());
-        
-        var userInput = "0";
-        var stringReader = new StringReader(userInput);
-        Console.SetIn(stringReader);
-
-        var expectedOnHand = game._human.OnHand.Count;
-
-        //act
-        game.HumanAction(game._human, userValidation.GetPlayerMove());
-        
-        //assert
-        Assert.Equal(expectedOnHand, game._human.OnHand.Count);
-        Assert.True(game._human.IsStay);
-    }
-
-    [Fact]
-    public void GivenPlayerHit_WhenPlayerGotBlackjack_ThenGameEnds()
+    public void GivenPlayerHit_WhenPlayerGotBlackjack_ThenGameEndsWithPlayerWin()
     {
         //arrange
         var mockWriter = new Mock<IWriter>();
         var mockReader = new Mock<IReader>();
-        var mockRandom = new Mock<IRandomiser>();
-        var game = new Game(mockWriter.Object, mockReader.Object, mockRandom.Object);
-        var stringWriter = new StringWriter();
-        Console.SetOut(stringWriter);
-
+        var fakeDeck = new DeckFake();
+        fakeDeck.Cards.Add(new Card(Suit.Diamond, Number.Ace));
+        fakeDeck.Cards.Add(new Card(Suit.Diamond, Number.Nine));
+        fakeDeck.Cards.Add(new Card(Suit.Diamond, Number.Ace));
+        var game = new Game(mockWriter.Object, mockReader.Object, fakeDeck);
+        mockReader.Setup(reader => reader.ReadLine()).Returns("1");
+        var expectedMessage1 = "You have hit Blackjack!";
+        var expectedMessage2 = "You beat the dealer!";
+        var notExpectedMessage = "Dealer wins!";
+        
         //act
-
+        game.Play();
 
         //assert
+        mockWriter.Verify(writer => writer.WriteLine(expectedMessage1));
+        mockWriter.Verify(writer => writer.WriteLine(expectedMessage2));
+        mockWriter.Verify(writer => writer.WriteLine(notExpectedMessage), Times.Never);
+    }
+    
+    [Fact]
+    public void GivenDealerHit_WhenDealerGotBlackjack_ThenGameEndsWithDealerWin()
+    {
+        //arrange
+        var mockWriter = new Mock<IWriter>();
+        var mockReader = new Mock<IReader>();
+        var fakeDeck = new DeckFake();
+        fakeDeck.Cards.Add(new Card(Suit.Diamond, Number.Ace));
+        fakeDeck.Cards.Add(new Card(Suit.Diamond, Number.Nine));
+        fakeDeck.Cards.Add(new Card(Suit.Spade, Number.Seven));
+        fakeDeck.Cards.Add(new Card(Suit.Heart, Number.Five));
+        fakeDeck.Cards.Add(new Card(Suit.Club, Number.Nine));
+        var game = new Game(mockWriter.Object, mockReader.Object, fakeDeck);
+        mockReader.Setup(reader => reader.ReadLine()).Returns("0");
+        var expectedMessage1 = "Dealer has hit Blackjack!";
+        var expectedMessage2 = "Dealer wins!";
+        var notExpectedMessage = "You beat the dealer!";
+        
+        //act
+        game.Play();
 
+        //assert
+        mockWriter.Verify(writer => writer.WriteLine(expectedMessage1));
+        mockWriter.Verify(writer => writer.WriteLine(expectedMessage2));
+        mockWriter.Verify(writer => writer.WriteLine(notExpectedMessage), Times.Never);
+    }
+    
+    [Fact]
+    public void GivenPlayerHit_WhenPlayerBust_ThenGameEndsWithDealerWin()
+    {
+        //arrange
+        var mockWriter = new Mock<IWriter>();
+        var mockReader = new Mock<IReader>();
+        var fakeDeck = new DeckFake();
+        var game = new Game(mockWriter.Object, mockReader.Object, fakeDeck);
+        fakeDeck.Cards.Add(new Card(Suit.Diamond, Number.Eight));
+        fakeDeck.Cards.Add(new Card(Suit.Diamond, Number.Nine));
+        fakeDeck.Cards.Add(new Card(Suit.Diamond, Number.King));
+        fakeDeck.Cards.Add(new Card(Suit.Diamond, Number.Queen));
+        fakeDeck.Cards.Add(new Card(Suit.Diamond, Number.Jack));
+        mockReader.Setup(reader => reader.ReadLine()).Returns("1");
+        var expectedMessage1 = "You are currently at Bust!";
+        var expectedMessage2 = "Dealer wins!";
+        var notExpectedMessage = "You beat the dealer!";
+        
+        //act
+        game.Play();
+
+        //assert
+        mockWriter.Verify(writer => writer.WriteLine(expectedMessage1));
+        mockWriter.Verify(writer => writer.WriteLine(expectedMessage2));
+        mockWriter.Verify(writer => writer.WriteLine(notExpectedMessage), Times.Never);
+    }
+
+    [Fact]
+    public void GivenDealerHit_WhenDealerBust_ThenGameEndsWithPlayerWin()
+    {
+        //arrange
+        var mockWriter = new Mock<IWriter>();
+        var mockReader = new Mock<IReader>();
+        var fakeDeck = new DeckFake();
+        var game = new Game(mockWriter.Object, mockReader.Object, fakeDeck);
+        fakeDeck.Cards.Add(new Card(Suit.Diamond, Number.Ace));
+        fakeDeck.Cards.Add(new Card(Suit.Diamond, Number.Nine));
+        fakeDeck.Cards.Add(new Card(Suit.Diamond, Number.King));
+        fakeDeck.Cards.Add(new Card(Suit.Diamond, Number.Four));
+        fakeDeck.Cards.Add(new Card(Suit.Diamond, Number.Jack));
+        mockReader.Setup(reader => reader.ReadLine()).Returns("0");
+        var expectedMessage1 = "Dealer is currently at Bust!";
+        var expectedMessage2 = "You beat the dealer!";
+        var notExpectedMessage = "Dealer wins!";
+        
+        //act
+        game.Play();
+
+        //assert
+        mockWriter.Verify(writer => writer.WriteLine(expectedMessage1));
+        mockWriter.Verify(writer => writer.WriteLine(expectedMessage2));
+        mockWriter.Verify(writer => writer.WriteLine(notExpectedMessage), Times.Never);
+    }
+
+    [Theory]
+    [MemberData(nameof(playerBustData))]
+    public void GivenPlayerHits_WhenAPlayerBust_ThenTheOtherWins()
+    {
+        
+    }
+        
+    [Fact]
+    public void GivenDealerStayed_WhenDealerPointsIsMoreThanPlayer_ThenGameEndsWithDealerWins()
+    {
+        
+    }
+
+    [Fact]
+    public void GivenDealerStayed_WhenPlayerPointsIsMoreThanDealer_ThenGameEndsWithPlayerWins()
+    {
+
+    }
+    
+    [Fact]
+    public void GivenDealerStayed_WhenBothPlayerHasSamePoints_ThenGameEndsInDraw()
+    {
+
+    }
+
+    public static IEnumerable<object[]> playerBustData => new List<object[]>
+    {
+        new object[]
+        {
+            
+        }
     }
 }

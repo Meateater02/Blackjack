@@ -2,7 +2,7 @@ namespace Blackjack;
 
 public class Scores
 {
-    public int TotalPoints { get; set; }
+    public int TotalPoints { get; private set; }
 
     public Scores()
     {
