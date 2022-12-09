@@ -21,7 +21,7 @@ public class Player
         Scores.AddScore(card);
     }
 
-    public void DetermineAceValue()
+    public void UpdateHandValue()
     {
         Scores.AdjustAceValue(OnHand);
     }

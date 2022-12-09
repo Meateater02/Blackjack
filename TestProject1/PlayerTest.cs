@@ -13,7 +13,7 @@ public class PlayerTest
         player.OnHand.Add(new Card(Suit.Club, Number.Nine));
         
         //act
-        player.DetermineAceValue();
+        player.UpdateHandValue();
 
         //assert
         Assert.Equal(11, player.OnHand[0].Value);
@@ -29,7 +29,7 @@ public class PlayerTest
         player.OnHand.Add(new Card(Suit.Heart, Number.Jack));
         
         //act
-        player.DetermineAceValue();
+        player.UpdateHandValue();
 
         //assert
         Assert.Equal(1, player.OnHand[0].Value);

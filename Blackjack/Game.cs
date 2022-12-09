@@ -43,7 +43,7 @@ public class Game
     {
         while (!_scoringSystem.IsGameEnd && !player.IsStay)
         {
-            player.DetermineAceValue();
+            player.UpdateHandValue();
             _printer.PrintPointsStatus(player);
             _printer.PrintOnHand(player.OnHand);
             _printer.PrintGameEnd(_scoringSystem);
