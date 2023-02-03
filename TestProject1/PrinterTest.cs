@@ -54,8 +54,8 @@ public class PrinterTest
         var printer = new Printer(writerMock.Object);
         var cards = new List<Card>()
         {
-            new Card(Suit.Club, Number.Ace),
-            new Card(Suit.Heart, Number.Four)
+            new (Suit.Club, Number.Ace),
+            new (Suit.Heart, Number.Four)
         };
         var expectedDisplayCards = "with the hand [['ACE', 'CLUB'][4, 'HEART']]\n\n";
 

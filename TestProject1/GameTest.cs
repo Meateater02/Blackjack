@@ -18,7 +18,7 @@ public class GameTest
 
     [Theory]
     [ClassData(typeof(PlayerBlackjackAndBustData))]
-    public void GivenPlayerHits_WhenPlayerGetsBlackJack_ThenGameEndsWithRespectedWinner(List<Card> cards, string userInput, List<string> messages)
+    public void GivenPlayerHits_WhenPlayerGetsBlackJackOrBust_ThenGameEndsWithRespectedWinner(List<Card> cards, string userInput, List<string> messages)
     {
         //arrange
         var fakeDeck = new DeckFake();
